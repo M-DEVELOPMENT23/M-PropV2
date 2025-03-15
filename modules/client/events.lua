@@ -47,9 +47,16 @@ RegisterNetEvent(EVENT_NAMES.OPEN_MENU, function()
     ShowPropCreatorMenu()
 end)
 
-AddEventHandler('QBCore:Client:OnPlayerLoaded', function()
-    TriggerServerEvent(EVENT_NAMES.REQUEST_PROPS, "creator")
-end)
+if Configuration.Framework == "QBCore" then
+    AddEventHandler('QBCore:Client:OnPlayerLoaded', function()
+        TriggerServerEvent(EVENT_NAMES.REQUEST_PROPS, "creator")
+    end)
+elseif Config.Framework == "ESX" then
+    Configuration('esx:playerLoaded', function()
+        TriggerServerEvent(EVENT_NAMES.REQUEST_PROPS, "creator")
+    end)
+end
+
 
 AddEventHandler("onResourceStop", function(resource)
     if resource == GetCurrentResourceName() then
