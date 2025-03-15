@@ -1,5 +1,6 @@
 Configuration = {
     Debug = false,
+    Framework = "QBCore", --- QBCore / esx
 
     Command = "propcreator",
     CommandAccess = "group.admin",
@@ -20,7 +21,7 @@ Configuration = {
         DeleteProps = "Delete Props",
         DeletePropsDesc = "Remove all props created",
 
-
+        --- Remove Prop Menu translations ---
         RemovePropsMenuTitle = "Prop Removal Menu",
         RemoveSpecificProp = "Remove a Specific Prop",
         RemoveSpecificPropDesc = "Select and remove a single placed prop",
@@ -37,6 +38,8 @@ Configuration = {
         PropColisions = "Collisions?",
         PropColisionsDesc = "Should the prop be able to move or interact with physics?",
 
+        --- METADATA ---
+        --- 
         Coordinates = "Coordinates",
         PropIDName = "Prop ID",
         Heading = "Heading",
@@ -47,7 +50,7 @@ Configuration = {
         NoPropsOnDB = "No props found in the database.",
         ConfirmDeleteHeader = "Confirm Deletion",
         ConfirmDeleteContent = "Are you sure you want to delete ALL props?\nThis action cannot be undone.",
-
+        --- Controls UI ---
         ControlsUI = "[Q]    - Move Up  \n" ..
                      "[E]    - Move Down  \n" ..
                      "[ARROWS] - Move  \n" ..
