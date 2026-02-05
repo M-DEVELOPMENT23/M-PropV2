@@ -34,7 +34,6 @@ Aquí tienes el `README.md` completo y actualizado con la sección de créditos 
 ## Dependencies 📦
 -   [ox_lib](https://github.com/overextended/ox_lib)
 -   [oxmysql](https://github.com/overextended/oxmysql)
--   *A Gizmo resource (Embedded or compatible export)*
 
 ---
 
@@ -147,3 +146,4 @@ Special thanks to the community members whose work laid the foundation for the G
 
 ## License 📜
 This script is open-source. You are free to modify it for your server.
+
