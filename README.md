@@ -1,123 +1,149 @@
-# Prop Creator - Standalone FiveM Script
+Aquí tienes el `README.md` completo y actualizado con la sección de créditos añadida al final, respetando el formato anterior.
 
-## Table of Contents 
+# M-PropV2 - Advanced Prop Creator
+
+## Table of Contents
 
 -   [Description](#description-)
 -   [Features](#features-️)
+-   [Dependencies](#dependencies-)
 -   [Installation](#installation-)
 -   [Usage](#usage-)
--   [Available Events](#available-events-)
+-   [Configuration](#configuration-)
 -   [Controls](#controls-)
 -   [Optimization](#optimization-)
+-   [Credits](#credits-)
 -   [License](#license-)
 
 ## Description 📜
-**Prop Creator** is a fully standalone script that allows the creation and management of props within the game world. With this script, administrators can dynamically generate, place, and remove objects through an intuitive interface with seamless database integration.
+**M-PropV2** is a powerful and fully standalone script for FiveM that allows for the precise creation, management, and placement of props. The script is built around an advanced gizmo tool, giving you real-time control to move, rotate, and scale objects with ease. All props are saved to the database (`m_props_created`), ensuring persistence across server restarts.
 
 ## Features 🛠️
-✅ **Real-time prop creation** with customizable position, rotation, and collision settings.  
-✅ **Database-backed prop management** for full persistence.  
-✅ **Prop removal menu**, with options to delete a specific prop or all at once.  
-✅ **Smooth spawning and despawning effects** to optimize performance and improve immersion.  
-✅ **Support for multiple notification systems**, including `ox_lib`.  
-✅ **Configurable permission system** to restrict command access.  
-✅ **Highly optimized** for efficient server performance.  
+✅ **Advanced Gizmo Tool** for precise, real-time object manipulation (Move, Rotate, Scale).
+✅ **Full 3D Rotation** allows you to save props at any angle (pitch, roll, yaw).
+✅ **Object Scaling** to dynamically resize any prop directly from the menu.
+✅ **Undo System** keeps a history of your last 20 actions (Create, Delete, Update).
+✅ **Grid-Based Streaming** props only spawn when players are nearby for maximum optimization.
+✅ **ox_target Integration** to edit, duplicate, or delete props using the third-eye.
+✅ **Mass Management** tools to delete props by radius or model name.
+✅ **ACE Permission System** (`propcreator.admin`) to restrict access.
+✅ **Modern UI** built with `ox_lib`.
+
+---
+
+## Dependencies 📦
+-   [ox_lib](https://github.com/overextended/ox_lib)
+-   [oxmysql](https://github.com/overextended/oxmysql)
+-   *A Gizmo resource (Embedded or compatible export)*
 
 ---
 
 ## Installation 📥
+
 ### 1️⃣ **Download and add the script**
-Place the script folder in your server's `resources/` directory and rename it to **M-PropV2**
+Place the folder in your server's `resources/` directory.
 
 ### 2️⃣ **Configure `server.cfg`**
-Add the following line to your `server.cfg`:
-```
+Add the permission for your admin group and ensure dependencies start first:
+
+```ini
+ensure ox_lib
+ensure oxmysql
 ensure M-PropV2
+
+# Permission setup
+add_ace group.admin propcreator.admin allow
 ```
 
 ### 3️⃣ **Set up the database**
-Run the following SQL query in your database to store props:
+Run the following SQL query. **This is critical** as it matches the schema used in `server.lua`.
+
 ```sql
-CREATE TABLE IF NOT EXISTS `mprops` (
-    `id` INT AUTO_INCREMENT PRIMARY KEY,
-    `propid` VARCHAR(50) NOT NULL,
-    `propname` VARCHAR(100) NOT NULL,
-    `x` FLOAT NOT NULL,
-    `y` FLOAT NOT NULL,
-    `z` FLOAT NOT NULL,
-    `heading` FLOAT NOT NULL,
-    `freeze` BOOLEAN NOT NULL,
-    `colision` BOOLEAN NOT NULL
+CREATE TABLE IF NOT EXISTS `m_props_created` (
+  `propid` INT(11) NOT NULL AUTO_INCREMENT,
+  `propname` VARCHAR(255) NOT NULL,
+  `x` FLOAT NOT NULL,
+  `y` FLOAT NOT NULL,
+  `z` FLOAT NOT NULL,
+  `rotX` FLOAT NOT NULL DEFAULT 0,
+  `rotY` FLOAT NOT NULL DEFAULT 0,
+  `rotZ` FLOAT NOT NULL DEFAULT 0,
+  `scale` FLOAT NOT NULL DEFAULT 1.0,
+  `freeze` TINYINT(1) NOT NULL DEFAULT 1,
+  `colision` TINYINT(1) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`propid`)
 );
 ```
 
 ---
 
 ## Usage 📌
-### 🏗️ **Creating a Prop**
-- Use the `/propcreator` command to open the admin menu.
-- Select the **"Create a Prop"** option and enter the required details.
-- Place the prop in the world using movement controls.
 
-### 🗑️ **Deleting Props**
-- Access the deletion menu via `/propcreator`.
-- Choose to remove a specific prop or delete all props from the server.
+### 🏗️ **Opening the Menu**
+-   Use the command **/propcreator** (configurable in `Config.lua`) to open the main menu.
+-   **Options:**
+    -   **Editor Mode:** Toggles the visual lines and markers for existing props.
+    -   **New Prop:** Spawns a new prop via input name.
+    -   **Advanced Tools:** Search nearby props, mass delete by radius/model.
+    -   **Undo Last:** Reverts the previous action.
 
-### 🎛️ **Configuring Permissions**
-Modify permissions in `config.lua`:
+### 🎯 **Using ox_target**
+1.  Ensure you are in **Editor Mode** (Toggle it in the main menu).
+2.  Hold your Target key (usually LAlt) and look at a prop created by this script.
+3.  Options available:
+    -   ✏️ **Edit:** Re-open the Gizmo to move/scale/rotate.
+    -   📄 **Duplicate:** Clone the prop immediately.
+    -   🗑️ **Delete:** Remove the prop permanently.
+
+---
+
+## Configuration 🎛️
+Edit `Config.lua` to suit your server needs:
+
 ```lua
-Configuration = {
-    Command = "propcreator",
-    CommandAccess = "group.admin",
+-- Command to open the menu
+Config.OpenMenuCommand = "propcreator"
+
+-- Streaming distances (affect performance)
+Config.Streaming = {
+    SpawnRadius = 150.0,
+    DespawnRadius = 180.0,
+    GridSize = 45.0
 }
 ```
 
 ---
 
-## Available Events 📡
-### 🔹 **Client → Server**
-| Event                          | Description |
-|--------------------------------|-------------|
-| `m:propcreator:RequestProps`   | Requests the list of stored props from the database. |
-| `m:propcreator:RemoveProp`     | Deletes a specific prop by ID. |
-| `m:propcreator:RemoveAllProps` | Deletes all stored props. |
-
-### 🔹 **Server → Client**
-| Event                              | Description |
-|----------------------------------|-------------|
-| `m:propcreator:SpawnProps`      | Spawns props stored in the database. |
-| `m:propcreator:DeleteAllProps`  | Removes all props from the game world. |
-| `m:propcreator:createremovemenu` | Displays the prop deletion menu. |
-
----
-
 ## Controls 🎮
-These are the controls for moving and adjusting props in the game world:
-```
-[Q]    - Move Up
-[E]    - Move Down
-[ARROWS] - Move
-[Scroll Wheel] - Rotate
-[LALT] - Adjust Height
-[ESC]  - Finish Editing
-```
+When using the **Gizmo** (placing or editing):
+
+*Controls may vary depending on the Gizmo resource used, but typically:*
+
+| Key | Action |
+| :--- | :--- |
+| **W** | Translate (Move) Mode |
+| **E** | Rotate Mode |
+| **R** | Scale Mode |
+| **LAlt** | Toggle Snapping |
+| **Mouse** | Drag handles to manipulate |
 
 ---
 
 ## Optimization 🚀
-This script is designed to be **lightweight and efficient**, using:
-- **Dynamic loading and unloading of props based on distance** to reduce server load.
-- **Well-structured event handling** to avoid unnecessary executions.
-- **Integration with `ox_lib`** for managing interfaces and notifications.
+This script uses a **Grid System** map approach:
+-   **Server Side:** Only loads props from DB on start.
+-   **Client Side:** Props are grouped into grid cells. Native GTA objects only exist when you are within `SpawnRadius`.
+-   **Idle:** 0.00ms usage when not moving near grid borders.
 
 ---
 
-## Credits 👨‍💻
-**Developer:** *M-DEVELOPMENT*  
-For support or suggestions, feel free to reach out! 🎉
+## Credits 👏
+Special thanks to the community members whose work laid the foundation for the Gizmo system used in this resource:
+
+-   **AvarianKnight**: For the [original discovery and implementation](https://forum.cfx.re/t/allow-drawgizmo-to-be-used-outside-of-fxdk/5091845/8?u=demi-automatic) of `DrawGizmo` outside of FxDK. The gizmo logic in this script is heavily based on his code, adapted and modified for this specific tool.
+-   **Andyyy7666**: For contributions and logic related to gizmo integration references found in [ox_lib PR #453](https://github.com/overextended/ox_lib/pull/453).
 
 ---
 
 ## License 📜
-This script is open-source. You may modify and adapt it to your needs, but **reselling it is not allowed**.
-
+This script is open-source. You are free to modify it for your server.
