@@ -1,33 +1,36 @@
 fx_version 'cerulean'
 game 'gta5'
-lua54 'true'
+lua54 'yes'
+
 author 'M-DEVELOPMENT'
-description 'Prop Creator for FiveM'
-version '1.0.0'
-
-client_scripts {
-    'modules/client/events.lua',
-    'modules/client/functions.lua',
-    'modules/client/spawn.lua',
-}
-
-shared_scripts {
-    '@ox_lib/init.lua',
-    'configuration/config.lua',
-}
-
-server_scripts {
-    'modules/server/db.lua',
-    'modules/server/command.lua',
-    'modules/server/load.lua',
-    '@oxmysql/lib/MySQL.lua'
-}
-
-escrow_ignore {
-    'configuration/config.lua',
-}
+description 'Advanced Prop Creator for FiveM with Gizmo, Persistence and ox_target integration.'
+version '2.0.0'
+repository 'https://github.com/M-DEVELOPMENT23/M-PropV2' 
 
 dependencies {
     'oxmysql',
     'ox_lib'
+}
+
+shared_scripts {
+    '@ox_lib/init.lua',
+    'configuration/config.lua'
+}
+
+client_scripts {
+    'modules/client/**/*.lua'
+}
+
+server_scripts {
+    '@oxmysql/lib/MySQL.lua',
+    'modules/server/**/*.lua'
+}
+
+exports {
+    'useGizmo'
+}
+
+files {
+    'locales/*.json',
+    'configuration/config.lua'
 }

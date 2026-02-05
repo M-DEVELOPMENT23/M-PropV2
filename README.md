@@ -1,3 +1,5 @@
+Aquí tienes el `README.md` completo y actualizado con la sección de créditos añadida al final, respetando el formato anterior.
+
 # M-PropV2 - Advanced Prop Creator
 
 ## Table of Contents
@@ -32,6 +34,7 @@
 ## Dependencies 📦
 -   [ox_lib](https://github.com/overextended/ox_lib)
 -   [oxmysql](https://github.com/overextended/oxmysql)
+-   *A Gizmo resource (Embedded or compatible export)*
 
 ---
 
@@ -144,5 +147,3 @@ Special thanks to the community members whose work laid the foundation for the G
 
 ## License 📜
 This script is open-source. You are free to modify it for your server.
-
-

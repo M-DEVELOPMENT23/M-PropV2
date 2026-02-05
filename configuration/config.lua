@@ -1,62 +1,83 @@
-Configuration = {
-    Debug = false,
-    Framework = "QBCore", --- QBCore / esx
+Config = {}
 
-    Command = "propcreator",
-    CommandAccess = "group.admin",
-    CommandDesc = "Open Prop Creator Menu",
+-- [[ CORE SETTINGS ]]
+Config.DebugMode = true
 
-    CommandDeleteProps = "m:propcreator:deleteprops",
-    CommandDeletePropsAccess = "group.admin",
-    CommandDeletePropsDesc = "Delete all props created (Security)",
+Config.OpenMenuCommand = "propcreator"
 
-    
-    DistanceLoad = 50.0,
+Config.DeleteOnStop = true -- Deletes props when stopping the script (prevents ghost props)
 
-
-    Translations = {
-        MenuTitle = "Prop Creator Menu",
-        CreateProp = "Create a Prop",
-        CreatePropDesc = "Spawn a new prop at your current location",
-        DeleteProps = "Delete Props",
-        DeletePropsDesc = "Remove all props created",
-
-        --- Remove Prop Menu translations ---
-        RemovePropsMenuTitle = "Prop Removal Menu",
-        RemoveSpecificProp = "Remove a Specific Prop",
-        RemoveSpecificPropDesc = "Select and remove a single placed prop",
-        RemoveAllProps = "Remove All Props",
-        RemoveAllPropsDesc = "Deletes every placed prop from the world", 
-
-        PropDialogTitle = "Prop Creation",
-        PropID = "Prop ID",
-        PropIDDesc = "Enter the unique ID ex (prop_generator_03b).",
-        PropName = "Prop Name",
-        PropNameDesc = "Enter a prop name to sabe in to db (3-50 characters).",
-        PropFreeze = "Freeze Prop?",
-        PropFreezeDesc = "Should the prop be static and immovable?",
-        PropColisions = "Collisions?",
-        PropColisionsDesc = "Should the prop be able to move or interact with physics?",
-
-        --- METADATA ---
-        --- 
-        Coordinates = "Coordinates",
-        PropIDName = "Prop ID",
-        Heading = "Heading",
-        Frozen = "Frozen",
-        Collisions = "Collisions",
-
-
-        NoPropsOnDB = "No props found in the database.",
-        ConfirmDeleteHeader = "Confirm Deletion",
-        ConfirmDeleteContent = "Are you sure you want to delete ALL props?\nThis action cannot be undone.",
-        --- Controls UI ---
-        ControlsUI = "[Q]    - Move Up  \n" ..
-                     "[E]    - Move Down  \n" ..
-                     "[ARROWS] - Move  \n" ..
-                     "[Scroll Wheel] - Rotate  \n" ..
-                     "[LALT] - Adjust Height  \n" ..
-                     "[ESC]  - Finish Editing  \n"
-    }
+-- [[ PLACEMENT & GIZMO ]]
+Config.Placement = {
+    CooldownMs = 1000,
+    PreviewAlpha = 200,
+    AutoSnapToGround = true,
+    DefaultSnapMove = 0.5,
+    DefaultSnapRot = 45.0,
 }
 
+-- [[ STREAMING (Performance) ]]
+Config.Streaming = {
+    SpawnRadius = 150.0,   -- Distance to spawn entity
+    DespawnRadius = 180.0, -- Distance to despawn entity
+    GridSize = 45.0,       -- Map cell size
+    FadeIn = true          -- Smooth fade-in effect
+}
+
+-- [[ TOOLS ]]
+Config.MassDeleteDelay = 150 -- Ms between deletions to avoid server overload
+
+-- [[ TARGET SYSTEM ]]
+Config.UseTarget = true 
+Config.TargetIcons = {
+    Edit = 'fa-solid fa-pen-ruler',
+    Duplicate = 'fa-solid fa-copy',
+    Delete = 'fa-solid fa-trash'
+}
+
+-- [[ LANGUAGE / TEXTS ]]
+Config.Lang = {
+    -- Notifications
+    NoPerms = "Access denied.",
+    ModelInvalid = "Invalid or unloaded model.",
+    Created = "Prop created successfully.",
+    Updated = "Prop updated successfully.",
+    Deleted = "Prop deleted.",
+    DeleteFail = "Failed to delete Prop ID: %s",
+    MassDeleteStart = "Starting mass deletion...",
+    MassDeleteDone = "Process finished. Deleted: %d/%d",
+    NothingFound = "No props found nearby.",
+    Undo = "Action undone.",
+    Copied = "Data copied to clipboard.",
+    
+    -- Menus
+    MenuTitle = "Prop Creator Ultimate",
+    EditorMode = "Editor Mode",
+    EditorDesc = "Enable visualization and editing",
+    NewProp = "New Prop",
+    AdvTools = "Advanced Tools",
+    AdvDesc = "Mass delete, radius tools, lists",
+    UndoLast = "Undo last action",
+    History = "History: %d actions",
+    
+    -- Inputs
+    InputModel = "Model Name (e.g. prop_bench_01)",
+    InputFreeze = "Freeze",
+    InputCol = "Collision",
+    InputSnap = "Snap to ground",
+    InputRadius = "Radius (meters)",
+    
+    -- Actions
+    SearchProps = "Search within radius",
+    DeleteAllRadius = "Delete ALL within Radius",
+    DeleteModelRadius = "Delete MODEL within Radius",
+    DeleteWarning = "THIS IS PERMANENT. Confirm?",
+    Teleport = "Teleport",
+    EditGizmo = "Edit (Gizmo)",
+    DeleteProp = "Delete",
+    CopyCoords = "Copy Coordinates",
+    
+    -- UI
+    PropInfo = "**ID:** %s  \n**MODEL:** %s",
+    DeletingUI = "Deleting... %d/%d"
+}
