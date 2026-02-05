@@ -1,7 +1,6 @@
 
 if not IsDuplicityVersion() then return end
 
-local RESOURCE_NAME = "M-PropV2"
 local VERSION_URL = "https://raw.githubusercontent.com/M-DEVELOPMENT23/M-PropV2/main/version.txt"
 
 local function CheckVersion()

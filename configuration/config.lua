@@ -1,13 +1,11 @@
 Config = {}
 
--- [[ CORE SETTINGS ]]
 Config.DebugMode = true
 
 Config.OpenMenuCommand = "propcreator"
 
 Config.DeleteOnStop = true -- Deletes props when stopping the script (prevents ghost props)
 
--- [[ PLACEMENT & GIZMO ]]
 Config.Placement = {
     CooldownMs = 1000,
     PreviewAlpha = 200,
@@ -16,7 +14,6 @@ Config.Placement = {
     DefaultSnapRot = 45.0,
 }
 
--- [[ STREAMING (Performance) ]]
 Config.Streaming = {
     SpawnRadius = 150.0,   -- Distance to spawn entity
     DespawnRadius = 180.0, -- Distance to despawn entity
@@ -24,10 +21,8 @@ Config.Streaming = {
     FadeIn = true          -- Smooth fade-in effect
 }
 
--- [[ TOOLS ]]
 Config.MassDeleteDelay = 150 -- Ms between deletions to avoid server overload
 
--- [[ TARGET SYSTEM ]]
 Config.UseTarget = true 
 Config.TargetIcons = {
     Edit = 'fa-solid fa-pen-ruler',
@@ -35,7 +30,6 @@ Config.TargetIcons = {
     Delete = 'fa-solid fa-trash'
 }
 
--- [[ LANGUAGE / TEXTS ]]
 Config.Lang = {
     -- Notifications
     NoPerms = "Access denied.",
