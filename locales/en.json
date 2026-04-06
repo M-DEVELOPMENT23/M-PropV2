@@ -1,0 +1,22 @@
+{
+  "scale_mode": "Scale Mode",
+  "current_mode": "Current Mode: %s | %s",
+  "relative": "Relative",
+  "world": "World",
+  "coords": "Coords: %s",
+  "rotation": "Rotation: %s",
+  "enable_cursor": "Enable Cursor",
+  "disable_cursor": "Disable Cursor",
+  "translate_mode": "Translate Mode",
+  "rotate_mode": "Rotate Mode",
+  "toggle_space": "Relative/World",
+  "snap_to_ground": "Snap To Ground",
+  "done_editing": "Done Editing",
+  "select_gizmo_description": "Selects the currently highlighted gizmo",
+  "translation_mode_description": "Sets mode of the gizmo to translation",
+  "rotation_mode_description": "Sets mode for the gizmo to rotation",
+  "toggle_space_description": "Toggle gizmo to be local to the entity instead of world",
+  "close_gizmo_description": "Close gizmo",
+  "snap_to_ground_description": "Snap current gizmo object to floor/surface",
+  "scale_mode_description": "Sets mode for the gizmo to scale"
+}
